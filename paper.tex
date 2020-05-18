@@ -1,0 +1,37 @@
+\documentclass[10pt]{config/paper}
+\input{config/terms.tex}
+
+% Figure source:
+%   - Performance plots: /figure/*.tikz
+%   - Others: https://www.lucidchart.com/invitations/accept/93682cce-6a27-4b2d-80de-9dc59ff7c7db
+
+\title{Characterizing and Modeling Non-Volatile\\Memory Systems%
+\ignore{Draft Ver.{\draftversion}}}
+\author{}
+
+\begin{document}
+\maketitle
+\thispagestyle{firstpage}
+\pagestyle{plain}
+
+\ignore{%
+Current version: Ver.{\draftversion}-{\DTMnow}
+}
+
+% TODO: dashed lines in result figures are not quite visiable when printed out
+
+\input{content/0-abstract.tex}
+\input{content/1-intro.tex}
+\input{content/2-motivation.tex}
+\input{content/3-lens.tex}
+\input{content/4-vans.tex}
+\input{content/5-optimization.tex}
+\input{content/6-related.tex}
+\input{content/7-conclusion.tex}
+
+\clearpage
+
+\bibliographystyle{IEEEtranS}
+\bibliography{content/ref.bib}
+
+\end{document}

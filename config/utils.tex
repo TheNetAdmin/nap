@@ -1,0 +1,90 @@
+% [fh][fh]Figure:
+%   [full|half] width [full|half] height figure
+\newcommand{\figfullwidth}{7in}
+\newcommand{\fighalfwidth}{3.374in}
+
+\newcommand{\figfullheight}{2.69in}
+\newcommand{\fighalfheight}{1.8in}
+
+% For tabularx
+\newcolumntype{P}{>{\raggedleft\arraybackslash}X}
+
+\newcommand{\squishlist}{
+   \begin{list}{$\bullet$}
+    { \setlength{\itemsep}{0pt}      \setlength{\parsep}{0pt}
+      \setlength{\topsep}{-3pt}       \setlength{\partopsep}{0pt}
+      \setlength{\listparindent}{-2pt}
+      \setlength{\itemindent}{-5pt}
+      \setlength{\leftmargin}{1em} \setlength{\labelwidth}{0em}
+      \setlength{\labelsep}{0.5em} }
+}
+
+\newcommand{\squishend}{
+    \end{list}  }
+
+\newcommand{\para}[1]{\vspace{2pt}\noindent\textbf{#1}}
+
+\newcommand*\mycirc[1]{%
+  \tikz[baseline=(char.base)]{
+  \node[minimum size=0.375cm,shape=circle,draw,inner sep=0.5pt,fill=black,text=white,font=\bfseries] (char) {#1};}%
+}%
+
+
+% Check mark and cross mark
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}
+\newcommand{\xmark}{\ding{55}}
+
+\newboolean{publicversion}
+\newboolean{revisedversion}
+\setboolean{publicversion}{true}
+\setboolean{revisedversion}{false}
+
+% Don't use `todonote` package, it slows down the LaTeX compilation
+
+\ifthenelse{\boolean{publicversion}}{
+    \newcommand{\jishen}[1]{}
+    \newcommand{\zixuan}[1]{}
+    \newcommand{\xiao}[1]{}
+    \newcommand{\theo}[1]{}
+    \newcommand{\question}[1]{}
+    \newcommand{\ignore}[1]{}
+    \newcommand{\deprecated}[2]{}
+    \newcommand{\mycomment}[2][]{}
+    % \newcommand{\newtext}[2]{#2}
+    \newcommand{\changesI}[1]{#1}
+    % \newcommand{\updatelater}[1]{}
+    \setboolean{revisedversion}{false}
+}{
+    \newcommand{\draftversion}{submit}
+    \newcommand{\jishen}[1]{{\color{red}\sf\bfseries Jishen: #1}}
+    \newcommand{\zixuan}[1]{{\color{brown}\sf zixuan: #1}}
+    \newcommand{\xiao}[1]{{\color{orange}\sf xiao: #1}}
+    \newcommand{\theo}[1]{{\color{violet}\sf Theo: #1}}
+    \newcommand{\question}[1]{{\color{blue}\sf\bfseries Question: #1}}
+    \newcommand{\ignore}[1]{{\color{gray}\sf #1}}
+    \newcommand{\deprecated}[2]{}
+    \newcommand{\updatelater}[1]{{\color{green} #1}}
+    \newcommand{\progresscheckpoint}[1]{{\color{brown}\sf Progress checkpoint(#1). Above part finished, start from here later.}}
+    \newcommand{\newtext}[2]{#2}
+    % For date time print
+    \edef\pdfilemoddate#1{\pdfcreationdate}
+    \usepackage[useregional]{datetime2}
+    \newcommand{\changesI}[1]{\textcolor{blue}{#1}}
+    %% NOTE: don't use `ulem` package, it interferes the reference style
+    % \usepackage{ulem}
+}
+
+\ifthenelse{\boolean{revisedversion}}{
+    % Highlight for rervision (good with lines that contain \cite{} and \ref{}
+    \usepackage{soul, color}
+    \soulregister\cite7
+    \soulregister\ref7
+    \soulregister\pageref7
+    % Usage: \st{for paragraph with deleting lines}.}
+    % \hl{highlight a paragraph with yellow background.}
+    % \renewcommand{\st}[1]{}
+} {
+    \newcommand{\st}[1]{\PackageError{napaper}{Do NOT use \\st for public version!}}
+    \newcommand{\hl}[1]{\PackageError{napaper}{Do NOT use \\hl for public version!}}
+}

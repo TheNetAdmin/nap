@@ -1,0 +1,55 @@
+\newcommand{\defineterm}[2]{\expandafter\def\csname #1 \endcsname{#2}}
+\newcommand{\term}[1]{\csname #1 \endcsname}
+
+% \defineterm{3ddram}{3D die-stacked DRAM}
+
+\newcommand{\xpoint}{3D-Xpoint}
+\newcommand{\optane}{Optane DC Persistent Memory}
+\newcommand{\optanedimm}{Optane DIMM}
+\newcommand{\optanes}{Optane DIMM}
+\newcommand{\pmem}{persistent memory}
+\newcommand{\vans}{VANS} %Get a project name
+\newcommand{\pmsim}{VANS} %Get a project name
+\newcommand{\nvdimm}{NVDIMM}
+\newcommand{\dramsim}{DRAMSim2}
+\newcommand{\ramulator}{Ramulator}
+\newcommand{\mqsim}{MQSim}
+\newcommand{\pcie}{PCIe}
+\newcommand{\sata}{SATA}
+\newcommand{\dimm}{DIMM}
+\newcommand{\mcssim}{MCSSim}
+\newcommand{\lattester}{LENS}
+\newcommand{\lens}{LENS}
+\newcommand{\nvline}{nvline}
+% We should not use the term 'PMEM line', so I change it to 'nvline', need double check
+\newcommand{\pmemline}{{\nvline}}
+\newcommand{\rmwbuf}{RMW Buffer}
+\newcommand{\nvmem}{non-volatile memory}
+\newcommand{\nvm}{NVRAM}
+\newcommand{\us}{\textmu{}s}
+
+\newcommand{\appdirect}{App Direct}
+\newcommand{\aepcache}{Cache}
+\newcommand{\aepmemory}{Memory}
+\newcommand{\rawpmem}{Raw PMEM}
+\newcommand{\purepmem}{Pure {\nvm}}
+
+\newcommand{\cacheline}{cacheline}
+
+% NVRAM controller terms
+\newcommand{\reqwrmw}{rmw-write}
+\newcommand{\reqwcomb}{combine-write}
+\newcommand{\reqwpathch}{patch-write}
+\newcommand{\reqrcold}{cold-read}
+\newcommand{\reqrff}{fast-forward-read}
+\newcommand{\lazycache}{Lazy cache}
+\newcommand{\ntqueue}{NTQueue}
+
+\newcommand{\accpcld}{90.99\%}
+\newcommand{\accpcst}{60.35\%}
+\newcommand{\accpcstlarge}{96.69\%} % For 64KB and larger test
+\newcommand{\accbwld}{87.15\%}
+\newcommand{\accbwst}{81.24\%}
+
+% TODO: auto uppercase the first letter: https://tex.stackexchange.com/questions/7992/command-to-uppercase-the-first-letter-of-each-word-in-a-sentence
+%       Maybe useful for `\lazycache` and `\pretranslation` macro
