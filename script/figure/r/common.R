@@ -11,6 +11,7 @@ suppressPackageStartupMessages(library(dplyr))
 
 line_default_size <- 1.5
 vline_default_size <- 0.75
+bar_outline_default_size <- 0.5
 
 naplot <- function(color_name = '', fill_name = '', ...){
     return(ggplot() +
@@ -434,3 +435,4 @@ format_si <- function(...) {
 }
 
 vline <- function(xint) {return(geom_vline(xintercept=xint, color='gray65', linetype='solid', size=vline_default_size))}
+vline_dashed <- function(xint) {return(geom_vline(xintercept=xint, color='gray65', linetype='longdash', size=vline_default_size))}

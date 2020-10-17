@@ -1,10 +1,9 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{paper}
 
-\newcommand{\conferencename}{micro}
 \usepackage{ifthen}
 
-\ifthenelse{\equal{\conferencename}{asplos}}
+\newcommand{\confasplos}
 {
     % ASPLOS Style
     % \LoadClass[pageno]{config/asplos/jpaper}
@@ -14,8 +13,7 @@
     % \setlength{\marginparwidth}{0.6in}
     % \let\marginpar\jp@marginpar
 }
-{
-\ifthenelse{\equal{\conferencename}{isca}}
+\newcommand{\confisca}
 {
     % ISCA Style
     \LoadClass[conference]{config/isca/IEEEtran}
@@ -53,6 +51,7 @@
 
     \pagenumbering{arabic}
 }
+\newcommand{\confmicro}
 {
     % % Micro 2020 Style
     \LoadClass{config/micro/sig-alternate}
@@ -85,7 +84,23 @@
 
     \pagenumbering{arabic}
 }
+\newcommand{\confieee}
+{
+    % IEEE conference -- MICRO2020 camera ready
+    \LoadClass[conference]{config/ieee/IEEEtran}
+    \IEEEoverridecommandlockouts
+    % The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+    \usepackage{cite}
+    \usepackage{amsmath,amssymb,amsfonts}
+    \usepackage{algorithmic}
+    \usepackage{graphicx}
+    \usepackage{textcomp}
+    \usepackage{xcolor}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 }
+
+\confieee{}
 
 \hyphenation{NV-RAM}
 
@@ -99,8 +114,8 @@
 \usepackage{commath}
 \usepackage{float}
 \usepackage{pgfplots}
-\usepackage{algorithm}
-\usepackage{algpseudocode}
+% \usepackage{algorithm}
+% \usepackage{algpseudocode}
 \usepackage{booktabs}
 \usepackage{listings}
 \usepackage{times}
@@ -112,7 +127,7 @@
 \usepackage{makecell}
 \usepackage[inline]{enumitem}
 \usepackage[roman]{parnotes}
-
+\usepackage{threeparttable}
 
 \pgfplotsset{compat=1.15}
 
@@ -120,7 +135,7 @@
 \let\MYcaption\@makecaption
 \makeatother
 % \usepackage[font=scriptsize]{caption}
-\usepackage[font=small]{subcaption}
+\usepackage[font=footnotesize,skip=1pt]{subcaption}
 \makeatletter
 \let\@makecaption\MYcaption
 \makeatother
@@ -157,3 +172,4 @@
 \def\obsref{Observation~\ref}
 
 \input{config/utils.tex}
+\input{config/terms.tex}

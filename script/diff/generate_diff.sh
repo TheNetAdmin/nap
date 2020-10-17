@@ -8,7 +8,7 @@ project_path=$this_path/../../
 cd $project_path
 
 diff_style=${1:-CFONT}
-old_commit=${2:-PLACEHOLDER} # ISCA submission ID
+old_commit=${2:-b27035} # ISCA submission ID
 new_commit=${3:-$(git rev-parse master)}
 draft_version=${4:-false}
 
@@ -38,7 +38,7 @@ if [[ $? -ne 0 ]]; then
     fi
 fi
 
-diff_fname=diff-[$old_tag]-[$new_tag].pdf
+diff_fname=diff-[$old_tag]-[$new_tag]
 
 echo old_commit $old_commit
 echo new_commit $new_commit
@@ -63,6 +63,10 @@ perl -pi.bak4 -e 's/\\\\\\vspace\{/\\vspace\{/' $fname
 
 if [[ $draft_version == 'false' ]]; then
     sed -r -i "s/publicversion\}\{.*\}/publicversion\}\{true\}/" config/utils.tex || true
+    # sed -r -i "s/revisedversion\}\{.*\}/revisedversion\}\{false\}/" config/utils.tex || true
+    # sed -r -i "s/newcommand\{\\\hl\}.*/newcommand\{\\\hl\}\[1\]\{\#1\}/" config/utils.tex || true
+    # sed -r -i "s/\\\DIFaddbegin\ \\\hl\{/\\\DIFaddbegin\ \\\DIFadd\{/" $fname || true
+    # diff_fname=$diff_fname-[pub]
 fi
 
 
@@ -72,6 +76,6 @@ if [ ! -f diffout/diff.pdf ]; then
     echo "ERROR: diffout/diff.pdf doesn't exist"
     exit 1
 fi
-mv diffout/diff.pdf diffout/$diff_fname
+mv diffout/diff.pdf diffout/$diff_fname.pdf
 
 rm -f diff.tex

@@ -4,29 +4,28 @@ make_flag:=--no-print-directory -j8
 .PHONY: paper
 paper:	out/paper.pdf
 
-
 out/paper.pdf: figure
 	latexmk -pdf -outdir=out paper.tex
 
 .PHONY: grammar
 grammar:
-	pandoc -f latex -t plain paper.tex -o out/paper.txt
+	bash script/text_process/pandoc_latex_to_plain.sh paper.tex out/paper.txt
 
 
-figure/Makefile: figure/src/rplots.csv \
-                  script/figure/r_figs.py
+figure/Makefile: figure/plots.csv \
+                 script/figure/configure.py
 	@echo GEN $@
-	@python script/figure/r_figs.py gen-makefile $< $@
+	@python script/figure/configure.py gen-makefile $< $@
 
 
-figure/rplots.tex: figure/src/rplots.csv \
-                   script/figure/r_figs.py
+figure/plots.tex: figure/plots.csv \
+                  script/figure/configure.py
 	@echo GEN $@
-	@python script/figure/r_figs.py gen-texfile $< $@
+	@python script/figure/configure.py gen-texfile $< $@
 
 
 .PHONY: figure
-figure: figure/Makefile figure/rplots.tex
+figure: figure/Makefile figure/plots.tex
 	@make ${make_flag} -C figure all_tikz
 
 
