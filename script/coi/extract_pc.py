@@ -8,8 +8,8 @@ from bs4 import BeautifulSoup
 def extract_pc(in_file, out_file):
     content = open(in_file, 'r').read()
     soup = BeautifulSoup(content, 'html.parser')
-    pc = soup.findAll('div', {'class': 'ctelti clearfix'})
-    p = [ r.label.span.next_sibling for r in pc ]
+    pc = soup.findAll('span', {'class': 'pcconf-editselector'})
+    p = [ r.next_sibling for r in pc ]
     with open(out_file, 'w') as f:
         for r in p:
             f.write(f'{r}\n')
