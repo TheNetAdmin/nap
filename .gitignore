@@ -5,7 +5,8 @@ figure/out/*
 figure/config
 diffout/*
 diff.tex
-
+script/coi/*.html
+script/coi/*.txt
 
 ### R ###
 # History files
