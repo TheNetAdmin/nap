@@ -172,12 +172,12 @@ def gen_makefile(cfg_filename, make_filename):
     all_targets['tikz_svg'] = []
     for cfg in configs:
         for t in cfg['type'].split(':'):
-            rules = [''@echo - e \"GEN \\t $@\"'']
+            rules = ['@echo -e \"GEN \\t $@\"']
             if t in ['tikz', 'pdf']:
                 target = f'{cfg["dest"]}.{t}'
                 depend = [cfg["data"], cfg["code"]]
                 rules.append(
-                    '@${RSCRIPT} $< --data $(word 2,$^) --out $@ --type {t}')
+                    '@${RSCRIPT} $(word 2,$^) --data $< --out $@ --type ' + f'{t}')
                 if t == 'tikz' and cfg['tikz_post_process'] != '':
                     rules.append(
                         f'@bash ../script/figure/tikz_post_process/{cfg["tikz_post_process"]} $@')
@@ -192,7 +192,7 @@ def gen_makefile(cfg_filename, make_filename):
                 rules.append(
                     '@bash ../script/figure/pdf_to_svg/pdf_to_svg.sh $<')
             all_targets[t].append(target)
-            make.rule(f'{target}', [depend], rules)
+            make.rule(f'{target}', depend, rules)
 
     # svg files from pdf figures like LucidChart
     all_targets['pdf_svg'] = []

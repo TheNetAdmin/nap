@@ -8,7 +8,7 @@ then
     exit 1
 fi
 
-BASE_FILE=$(echo $TIKZ_FILE | sed 's/.tikz//')
+BASE_FILE=$(basename $(echo $TIKZ_FILE | sed 's/.tikz//'))
 TEX_FILE=$BASE_FILE.tex
 PDF_FILE=$BASE_FILE.pdf
 
@@ -30,6 +30,6 @@ cat << EOF >$TEX_FILE
 EOF
 
 latexmk -pdf -silent -outdir=$outdir $TEX_FILE
-mv $outdir/$PDF_FILE ./$BASE_FILE.tikz.pdf
+mv $outdir/$PDF_FILE plot/$BASE_FILE.tikz.pdf
 
 rm -f $TEX_FILE
