@@ -99,8 +99,14 @@
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 }
+\newcommand{\confusenix}
+{
+    % USENIX conference, e.g. ATC
+    \LoadClass[letterpaper,twocolumn,10pt]{article}
+    \usepackage{config/usenix/usenix-2020-09}
+}
 
-\confieee{}
+\confusenix{}
 
 \hyphenation{NV-RAM}
 
@@ -172,4 +178,3 @@
 \def\obsref{Observation~\ref}
 
 \input{config/utils.tex}
-\input{config/terms.tex}
