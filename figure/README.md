@@ -1,12 +1,5 @@
 # Plots
 
-Lines start with '#' are comments
-This comment is not a standard csv feature
-The comment is recognized by:
-  - script/figure/configure.py:read_config
-  - vscode extension rainbow-csv
-  - vscode extension edit-csv
-NOTE: do not use comma in comment to prevent highlight error in vscode
 Available options:
   - code   (source code file name under figure/src without leading path)
   - data   (data file name under data/ without leading path)
