@@ -6,7 +6,12 @@ if [ "$#" -ne 2 ]; then
 fi
 
 paper_name=$1
-github_repo=git@github.com:$2
+
+if [ $# -eq 2 ]; then
+    github_repo=git@github.com:$2
+else
+    github_repo=git@github.com:TheNetAdmin/$1
+fi
 
 git clone git@github.com:TheNetAdmin/nap $1
 
