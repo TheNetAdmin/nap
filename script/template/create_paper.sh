@@ -13,6 +13,9 @@ else
     github_repo=git@github.com:TheNetAdmin/$1
 fi
 
+echo "paper_name:  $paper_name"
+echo "github_repo: $github_repo"
+
 git clone git@github.com:TheNetAdmin/nap $1
 
 cd $1
