@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 if [ "$#" -ne 1 ] && [ "$#" -ne 2 ]; then
     echo "Usage: $0 PAPER_NAME GITHUB_REPO"
     echo "E.g. $0 awesome TheNetAdmin/paper-awesome"
@@ -11,7 +13,7 @@ paper_name=$1
 if [ $# -eq 2 ]; then
     github_repo=git@github.com:$2
 else
-    github_repo=git@github.com:TheNetAdmin/$1
+    github_repo=git@github.com:TheNetAdmin/paper-$1
 fi
 
 echo "paper_name:  $paper_name"
