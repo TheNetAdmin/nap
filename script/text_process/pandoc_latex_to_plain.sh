@@ -52,10 +52,7 @@ sed -i 's/\\end{abstract}/\%\\end{abstract}/g' $abs_file
 sed -i 's/\\figref/Figure\~\\ref/g'  content/*.tex
 sed -i 's/\\tabref/Table\~\\ref/g'   content/*.tex
 sed -i 's/\\secref/Section\~\\ref/g' content/*.tex
-sed -i 's/\\figref/Figure\~\\ref/g'  content/*.tex
-sed -i 's/\\tabref/Table\~\\ref/g'   content/*.tex
-sed -i 's/\\secref/Section\~\\ref/g' content/*.tex
-sed -i 's/\\para/\\textbf/g'     content/*.tex
+sed -i 's/\\para/\\textbf/g'         content/*.tex
 
 pandoc --wrap=none -f latex -t plain $src_file -o $dst_file
 

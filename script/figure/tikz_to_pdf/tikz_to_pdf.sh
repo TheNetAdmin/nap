@@ -9,11 +9,18 @@ then
 fi
 
 BASE_FILE=$(basename $(echo $TIKZ_FILE | sed 's/.tikz//'))
+BASE_DIR=$(dirname $TIKZ_FILE)
 TEX_FILE=$BASE_FILE.tex
 PDF_FILE=$BASE_FILE.pdf
 
-outdir=out/$BASE_FILE
+FIGURE_DIR=$(realpath .)
+
+outdir=out/$BASE_DIR/$BASE_FILE
 mkdir -p $outdir
+
+pushd $outdir || exit 2
+ln -s $FIGURE_DIR figure
+popd || exit 2
 
 cat << EOF >$TEX_FILE
 \documentclass[tikz]{standalone}
@@ -23,13 +30,15 @@ cat << EOF >$TEX_FILE
 \usepackage{mathptmx}
 \usepackage{pgfplots}
 \tikzstyle{every picture}+=[font=\sffamily]
+%\usepgfplotslibrary{external}
+%\tikzexternalize
 
 \begin{document}
 \input{$TIKZ_FILE}
 \end{document}
 EOF
 
-latexmk -pdf -silent -outdir=$outdir $TEX_FILE
-mv $outdir/$PDF_FILE plot/$BASE_FILE.tikz.pdf
+latexmk -shell-escape -pdf -silent -outdir=$outdir $TEX_FILE
+mv $outdir/$PDF_FILE $BASE_DIR/$BASE_FILE.tikz.pdf
 
 rm -f $TEX_FILE

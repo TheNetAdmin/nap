@@ -5,7 +5,7 @@ figure/out/*
 figure/config
 diffout/*
 diff.tex
-script/coi/*.html
+script/coi/*.htm*
 script/coi/*.txt
 
 ### R ###

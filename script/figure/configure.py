@@ -16,7 +16,7 @@ class makefile(object):
         self.comment(
             f'Do not modify this file manually, modify the config file instead')
         self.newline()
-        self.variable('.DEFAULT_GOAL', 'all_tikz')
+        self.variable('.DEFAULT_GOAL', 'all_tikz_pdf')
         self.newline()
         self.variable('make_flag', '--no-print-directory -j8')
         self.newline()
@@ -126,7 +126,10 @@ def read_config(cfg_filename):
             if not cfg['code'].endswith('.R'):
                 print(f'Unsupported source code type: {cfg["code"]}')
                 exit(1)
-            cfg['dest'] = f'{dest_path}/{cfg["code"].rstrip(".R")}'
+            if 'target' not in cfg.keys() or cfg['target'] == '':
+                cfg['dest'] = f'{dest_path}/{cfg["code"].rstrip(".R")}'
+            else:
+                cfg['dest'] = f'{dest_path}/{cfg["target"]}'
             cfg['data'] = f'{data_path}/{cfg["data"]}'
             cfg['code'] = f'{code_path}/{cfg["code"]}'
             configs.append(cfg)
@@ -176,11 +179,15 @@ def gen_makefile(cfg_filename, make_filename):
             if t in ['tikz', 'pdf']:
                 target = f'{cfg["dest"]}.{t}'
                 depend = [cfg["data"], cfg["code"]]
+                arg = cfg['arg']
                 rules.append(
-                    '@${RSCRIPT} $(word 2,$^) --data $< --out $@ --type ' + f'{t}')
-                if t == 'tikz' and cfg['tikz_post_process'] != '':
+                    '@${RSCRIPT} $(word 2,$^) --data $< --out $@ --type ' + f'{t}' + f' {arg}')
+                if cfg['post_process'] != '':
+                    ptype, pscript = cfg['post_process'].split(':')
+                    if ptype != t:
+                        continue
                     rules.append(
-                        f'@bash ../script/figure/tikz_post_process/{cfg["tikz_post_process"]} $@')
+                        f'@bash ../script/figure/post_process/{ptype}/{pscript} $@')
             elif t in ['tikz_pdf']:
                 target = f'{cfg["dest"]}.tikz.pdf'
                 depend = f'{cfg["dest"]}.tikz'
@@ -197,7 +204,6 @@ def gen_makefile(cfg_filename, make_filename):
     # svg files from pdf figures like LucidChart
     all_targets['pdf_svg'] = []
     for pdf in get_all_pdf():
-        print(pdf)
         target = pdf.replace('pdf', 'svg')
         depend = pdf
         all_targets['pdf_svg'].append(target)
@@ -239,9 +245,9 @@ def gen_makefile(cfg_filename, make_filename):
 
     # generate .gitignore for all pdf targets
     with open('figure/.gitignore', 'w') as f:
-        f.write('\n'.join(all_targets['pdf']))
-        f.write('\n')
-        f.write('\n'.join(all_targets['tikz_pdf']))
+        # f.write('\n'.join(all_targets['pdf']))
+        # f.write('\n')
+        # f.write('\n'.join(all_targets['tikz_pdf']))
         f.write('\n')
         f.write('\n'.join(all_targets['tikz_svg']))
         f.write('\n')

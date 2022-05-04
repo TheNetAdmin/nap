@@ -9,6 +9,10 @@ option_list = list(
               help="output file type [tikz|pdf]", metavar="character")
 );
 
+if (exists("additional_option_list")) {
+    option_list <- append(option_list, additional_option_list)
+}
+
 opt_parser = OptionParser(option_list=option_list)
 opt = parse_args(opt_parser)
 

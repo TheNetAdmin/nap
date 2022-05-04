@@ -8,16 +8,19 @@ suppressPackageStartupMessages(library(viridis))
 suppressPackageStartupMessages(library(grid))
 suppressPackageStartupMessages(library(gridExtra))
 suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(jsonlite))
 
 line_default_size <- 1.5
 vline_default_size <- 0.75
 bar_outline_default_size <- 0.5
 
-naplot <- function(color_name = '', fill_name = '', ...){
-    return(ggplot() +
+naplot <- function(data, color_name = '', fill_name = '', ...){
+    return(
+        data %>%
+        ggplot() +
         theme_pubr(border = TRUE, base_family="sans") +
-        scale_color_d3(name = color_name) +
-        scale_fill_d3(name = fill_name) +
+        scale_color_jama(name = color_name) +
+        scale_fill_jama(name = fill_name) +
         theme(text=element_text(size=11),
               legend.position='top',
               legend.margin=margin(0,0,-10,0),
@@ -46,6 +49,10 @@ fig_trd_height  <- 1.20
 
 fig_quad_width  <- 1.60
 fig_quad_height <- 0.90
+
+# Under 300 PPI
+fig_half_width_pixel  <- 960
+fig_half_height_pixel <- 540
 
 pub_ppi <- 600
 
@@ -101,6 +108,21 @@ byte_scale_factor <- function (number, unit = "")
   return(sistring)
 }
 
+bitrate_scale <- function(number, unit = "")
+{
+  sifactor <- c(1, 1000, 1000^2, 1000^3, 1000^4, 1000^5, 1000^6, 1000^7, 1000^8)
+  pre <- c("", " K", " M", " G", " T", " P", " E", " Z", " Y")
+  absolutenumber <- number * sign(number)
+  ix <- findInterval(absolutenumber, sifactor)
+  if (length(ix) > 0) {
+    sistring <- paste(sprintf("%.0f", number / sifactor[ix]), pre[ix], sep = "", unit = unit)
+  }
+  else {
+    sistring <- as.character(number)
+  }
+  return(sistring)
+}
+
 format_si <- function(...) {
   # Based on code by Ben Tupper
   # https://stat.ethz.ch/pipermail/r-help/2012-January/299804.html
@@ -128,4 +150,21 @@ format_si <- function(...) {
 }
 
 vline <- function(xint) {return(geom_vline(xintercept=xint, color='gray65', linetype='solid', size=vline_default_size))}
+hline <- function(xint) {return(geom_hline(yintercept=xint, color='gray65', linetype='solid', size=vline_default_size))}
 vline_dashed <- function(xint) {return(geom_vline(xintercept=xint, color='gray65', linetype='longdash', size=vline_default_size))}
+vline_toppicks <- function(xint) {return(geom_vline(xintercept=xint, color='gray50', linetype='solid', size=vline_default_size))}
+
+
+na_text_repel <- function(label_points) {
+    return(
+        geom_text_repel(data = label_points,
+                   aes(x, y, label = pos),
+                   arrow = NULL,
+                   direction = 'x',
+                   angle = 90,
+                   nudge_y = 0,
+                   hjust = 0,
+                   size = 3
+                   )
+    )
+}
