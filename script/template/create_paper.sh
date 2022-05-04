@@ -29,7 +29,7 @@ while true; do
     esac
 done
 
-git clone git@github.com:TheNetAdmin/nap $1
+git clone git@github.com:TheNetAdmin/nap "${paper_name}"
 
 cd "${paper_name}"
 git remote set-url origin ${github_repo}
