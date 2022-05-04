@@ -38,4 +38,4 @@ git checkout -b paper
 git push origin -u paper
 
 echo "Template initlization is done, press any key to exit. NOTE: Remember to change GitHub default branch to 'paper' before you link it to Overleaf"
-read
+read -p "Understood [Enter]"
