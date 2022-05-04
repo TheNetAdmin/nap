@@ -287,5 +287,4 @@ TSWLatexianTemp*
 *.sta
 
 ### VisualStudioCode ###
-.vscode/*
 .history
