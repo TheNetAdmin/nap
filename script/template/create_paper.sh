@@ -2,14 +2,14 @@
 
 set -e
 
-if [ "$#" -ne 1 ] && [ "$#" -ne 2 ]; then
+if [ $# -ne 1 ] && [ $# -ne 2 ]; then
     echo "Usage: $0 PAPER_NAME [GITHUB_REPO]"
     echo "E.g. $0 awesome TheNetAdmin/paper-awesome"
     echo "     will generate dir paper-awesome/ and link to the GitHub"
     exit 2
 fi
 
-paper_name=paper-$1
+paper_name="paper-$1"
 
 if [ $# -eq 2 ]; then
     github_repo=git@github.com:$2
