@@ -7,7 +7,7 @@
 {
     % ASPLOS Style
     % \LoadClass[pageno]{config/asplos/jpaper}
-    % \newcommand{\asplossubmissionnumber}{532}
+    % \newcommand{\asplossubmissionnumber}{XXX}
 
     % Draft stage setting for todonote
     % \setlength{\marginparwidth}{0.6in}
@@ -37,7 +37,6 @@
 
 
     %%%%%%%%%%%---SETME-----%%%%%%%%%%%%%
-    % \newcommand{\iscasubmissionnumber}{133} % ISCA 2020 submissionnumber 133
     \newcommand{\iscasubmissionnumber}{XXX}
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
