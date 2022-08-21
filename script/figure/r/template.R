@@ -17,6 +17,10 @@ output_dev_close()
 ## Reorder factorized legends
 ## df$col <- factor(df$col, levels=c())
 
+## Reorder with dplyr
+## mutate(value = factor(value, levels=c())) %>%
+## arrange(value) %>%
+
 ## Scale x axis with byte labels
 ## scale_x_continuous(name = '', trans = 'log2', labels = byte_scale)
 

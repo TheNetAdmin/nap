@@ -9,6 +9,8 @@ suppressPackageStartupMessages(library(grid))
 suppressPackageStartupMessages(library(gridExtra))
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(jsonlite))
+suppressPackageStartupMessages(library(plotly))
+suppressPackageStartupMessages(library(reshape))
 
 line_default_size <- 1.5
 vline_default_size <- 0.75
@@ -19,12 +21,12 @@ naplot <- function(data, color_name = '', fill_name = '', ...){
         data %>%
         ggplot() +
         theme_pubr(border = TRUE, base_family="sans") +
-        scale_color_jama(name = color_name) +
-        scale_fill_jama(name = fill_name) +
-        theme(text=element_text(size=11),
+        scale_color_d3(name = color_name) +
+        scale_fill_d3(name = fill_name) +
+        theme(text=element_text(size=12),
               legend.position='top',
               legend.margin=margin(0,0,-10,0),
-              legend.text = element_text(size=10),
+              legend.text = element_text(size=12),
               axis.ticks.length=unit(-0.1, "cm"),
               axis.text.x = element_text(margin=margin(5,0,0,0,"pt")),
               axis.text.y = element_text(margin=margin(0,5,0,0,"pt")),
@@ -36,7 +38,7 @@ naplot <- function(data, color_name = '', fill_name = '', ...){
     )
 }
 
-read_data <- function(filename) {return(read.csv(filename, strip.white=TRUE))}
+read_data <- function(filename, ...) {return(read.csv(filename, strip.white=TRUE, ...))}
 
 fig_full_width  <- 6.60
 fig_full_height <- 2.69
@@ -47,12 +49,11 @@ fig_half_height <- 1.80
 fig_trd_width   <- 2.10
 fig_trd_height  <- 1.20
 
-fig_quad_width  <- 1.60
-fig_quad_height <- 0.90
+fig_qtr_width   <- 1.60
+fig_qtr_height  <- 0.90
 
-# Under 300 PPI
-fig_half_width_pixel  <- 960
-fig_half_height_pixel <- 540
+fig_half_width_pixel  <- 240 / 3 * 3.25
+fig_half_height_pixel <- 135 / 3 * 3.25
 
 pub_ppi <- 600
 
@@ -152,8 +153,6 @@ format_si <- function(...) {
 vline <- function(xint) {return(geom_vline(xintercept=xint, color='gray65', linetype='solid', size=vline_default_size))}
 hline <- function(xint) {return(geom_hline(yintercept=xint, color='gray65', linetype='solid', size=vline_default_size))}
 vline_dashed <- function(xint) {return(geom_vline(xintercept=xint, color='gray65', linetype='longdash', size=vline_default_size))}
-vline_toppicks <- function(xint) {return(geom_vline(xintercept=xint, color='gray50', linetype='solid', size=vline_default_size))}
-
 
 na_text_repel <- function(label_points) {
     return(

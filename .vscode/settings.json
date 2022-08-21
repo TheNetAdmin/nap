@@ -1,3 +1,4 @@
 {
-    "rainbow_csv.comment_prefix": "#"
+    "rainbow_csv.comment_prefix": "#",
+    "r.lsp.promptToInstall": false
 }

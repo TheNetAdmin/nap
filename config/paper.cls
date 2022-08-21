@@ -104,8 +104,14 @@
     \LoadClass[letterpaper,twocolumn,10pt]{article}
     \usepackage{config/usenix/usenix-2020-09}
 }
+\newcommand{\confeurosys}
+{
+    \LoadClass[sigplan,review,anonymous]{acmart}
+    \acmSubmissionID{XXX}
+    \renewcommand\footnotetextcopyrightpermission[1]{}
+}
 
-\confusenix{}
+\confeurosys{}
 
 \hyphenation{NV-RAM}
 
@@ -113,7 +119,7 @@
 % General settings%
 %=================%
 
-\usepackage{amssymb}
+% \usepackage{amssymb}
 \usepackage{amsfonts}
 \usepackage{amsmath}
 \usepackage{commath}
@@ -133,6 +139,11 @@
 \usepackage[inline]{enumitem}
 \usepackage[roman]{parnotes}
 \usepackage{threeparttable}
+\usepackage{url}
+
+\makeatletter
+\g@addto@macro{\UrlBreaks}{\UrlOrds}
+\makeatother
 
 \pgfplotsset{compat=1.15}
 
