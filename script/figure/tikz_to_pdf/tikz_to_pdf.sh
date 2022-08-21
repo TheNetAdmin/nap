@@ -10,8 +10,9 @@ fi
 
 BASE_FILE=$(basename $(echo $TIKZ_FILE | sed 's/.tikz//'))
 BASE_DIR=$(dirname $TIKZ_FILE)
-TEX_FILE=$BASE_FILE.tex
-PDF_FILE=$BASE_FILE.pdf
+TEX_PREFIX=$(echo $BASE_DIR | sed 's/\//-/g')
+TEX_FILE=$TEX_PREFIX-$BASE_FILE.tex
+PDF_FILE=$TEX_PREFIX-$BASE_FILE.pdf
 
 FIGURE_DIR=$(realpath .)
 
@@ -19,13 +20,15 @@ outdir=out/$BASE_DIR/$BASE_FILE
 mkdir -p $outdir
 
 pushd $outdir || exit 2
-ln -s $FIGURE_DIR figure
+ln -s $FIGURE_DIR figure >/dev/null 2>&1
 popd || exit 2
 
 cat << EOF >$TEX_FILE
 \documentclass[tikz]{standalone}
 
 \fontfamily{aer}
+% \usepackage[T1]{fontenc}
+% \usepackage[scaled=.92]{helvet}
 \usepackage{amsfonts}
 \usepackage{mathptmx}
 \usepackage{pgfplots}
@@ -38,7 +41,7 @@ cat << EOF >$TEX_FILE
 \end{document}
 EOF
 
-latexmk -shell-escape -pdf -silent -outdir=$outdir $TEX_FILE
+latexmk -xelatex -shell-escape -pdf -silent -outdir=$outdir $TEX_FILE
 mv $outdir/$PDF_FILE $BASE_DIR/$BASE_FILE.tikz.pdf
 
 rm -f $TEX_FILE
