@@ -146,7 +146,7 @@
 % General settings %
 %==================%
 
-\usepackage{amssymb}
+% \usepackage{amssymb}
 \usepackage{amsfonts}
 \usepackage{amsmath}
 \usepackage{commath}
@@ -169,8 +169,7 @@
 \usepackage{minted}
 \usepackage{xspace}
 \usepackage{hyperref}
-
-\usepackage{inconsolata}
+% \usepackage{inconsolata}
 
 \pgfplotsset{compat=1.15}
 
@@ -305,8 +304,8 @@
         position=current page.west,
         angle=90,
         nodeanchor=west,
-        vshift=-5mm,
-        hshift=-20mm,
+        vshift=-2mm,
+        hshift=-25mm,
         opacity=1,
         scale=1.75,
         contents=DRAFT [Ver.{\draftversion}] {\DTMnow} {Page \thepage}
