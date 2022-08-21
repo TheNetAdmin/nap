@@ -163,7 +163,7 @@
 \usepackage{textcomp} % For \textperthousand
 \usepackage{multirow}
 \usepackage{makecell}
-\usepackage[inline]{enumitem}
+\usepackage{enumitem}
 \usepackage[roman]{parnotes}
 \usepackage{threeparttable}
 \usepackage{minted}
@@ -275,7 +275,7 @@
 \newboolean{revisedversion}
 \newboolean{commentversion}
 
-\setboolean{publicversion}  {true}
+\setboolean{publicversion}  {false}
 \setboolean{revisedversion} {true}
 \setboolean{commentversion} {true}
 
