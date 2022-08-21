@@ -10,12 +10,10 @@
 \newcommand{\confasplos}
 {
     % ASPLOS Style
-    % \LoadClass[pageno]{config/asplos/jpaper}
-    % \newcommand{\asplossubmissionnumber}{XXX}
+    \LoadClass[pageno]{config/asplos/jpaper}
+    \newcommand{\asplossubmissionnumber}{XXX}
 
-    % Draft stage setting for todonote
-    % \setlength{\marginparwidth}{0.6in}
-    % \let\marginpar\jp@marginpar
+    \usepackage[normalem]{ulem}
 }
 \newcommand{\confisca}
 {
@@ -67,7 +65,7 @@
     \usepackage[final]{microtype}
     \usepackage[keeplastbox]{flushend}
     % Always include hyperref last
-    \usepackage[bookmarks=true,breaklinks=true,letterpaper=true,colorlinks,linkcolor=black,citecolor=blue,urlcolor=black]{hyperref}
+    % \usepackage[bookmarks=true,breaklinks=true,letterpaper=true,colorlinks,linkcolor=black,citecolor=blue,urlcolor=black]{hyperref}
 
     % Ensure letter paper
     \pdfpagewidth=8.5in
@@ -142,7 +140,7 @@
     \renewcommand\footnotetextcopyrightpermission[1]{}
 }
 
-\confusenix{}
+\confasplos{}
 
 %==================%
 % General settings %
@@ -170,6 +168,7 @@
 \usepackage{threeparttable}
 \usepackage{minted}
 \usepackage{xspace}
+\usepackage{hyperref}
 
 \usepackage{inconsolata}
 
@@ -295,7 +294,7 @@
     \setboolean{revisedversion}{false}
     \setboolean{commentversion}{false}
 }{
-    \newcommand{\draftversion}{Usenix23}
+    \newcommand{\draftversion}{ConfName}
 
     % For date time print
     \edef\pdfilemoddate#1{\pdfcreationdate}
