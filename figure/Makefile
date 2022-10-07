@@ -8,6 +8,17 @@ make_flag:=--no-print-directory -j8
 
 RSCRIPT:=Rscript --no-save --no-restore
 
+plot/example.tikz: ../data/example.csv \
+                   src/example.R
+	@echo -e "GEN \t $@"
+	@${RSCRIPT} $(word 2,$^) --data $< --out $@ --type tikz 
+
+
+plot/example.tikz.pdf: plot/example.tikz
+	@echo -e "GEN \t $@"
+	@bash ../script/figure/tikz_to_pdf/tikz_to_pdf.sh $<
+
+
 .PHONY: all
 all: all_tikz     \
      all_pdf      \
@@ -22,11 +33,11 @@ all_pdf:
 .PHONY: all_png
 all_png: 
 
-.PHONY: all_tikz
-all_tikz: 
+.PHONY:   all_tikz
+all_tikz: plot/example.tikz
 
-.PHONY: all_tikz_pdf
-all_tikz_pdf: 
+.PHONY:       all_tikz_pdf
+all_tikz_pdf: plot/example.tikz.pdf
 
 .PHONY: all_tikz_svg
 all_tikz_svg: 
@@ -45,9 +56,10 @@ figure:
 .PHONY:      tikz_to_pdf
 tikz_to_pdf: out/plots.pdf
 
-out/plots.pdf: plots.tex \
-               config    \
-               figure
+out/plots.pdf: plots.tex         \
+               config            \
+               figure            \
+               plot/example.tikz
 	@latexmk -pdf -outdir=out -quiet plots.tex
 
 
@@ -61,13 +73,13 @@ clean: clean_tikz     \
 
 .PHONY: clean_tikz
 clean_tikz: 
-	rm -f 
+	rm -f plot/example.tikz
 	rm -f *_ras1.png
 
 
 .PHONY: clean_tikz_pdf
 clean_tikz_pdf: 
-	rm -f 
+	rm -f plot/example.tikz.pdf
 
 
 .PHONY: clean_tikz_svg
