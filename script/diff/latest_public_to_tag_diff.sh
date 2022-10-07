@@ -12,7 +12,7 @@ if [[ $? -ne 0 ]]; then
     exit 1
 fi
 
-curr_commit=$(git rev-parse master)
+curr_commit=$(git rev-parse paper)
 past_commit=$(git rev-list -n 1 $past_tag)
 
 if [[ $past_commit == $curr_commit ]]; then

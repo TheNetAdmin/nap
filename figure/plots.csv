@@ -20,4 +20,4 @@
 #   - post_process (script name under script/figure/post_process), e.g.:
 #     1. tikz/heatmap_path_fix.sh
 #     2. pdf/pdf_to_png.sh
-target ,code ,data ,type ,arg ,post_process
+target ,code ,data ,arg ,post_process ,type

@@ -14,6 +14,16 @@
     \newcommand{\asplossubmissionnumber}{XXX}
 
     \usepackage[normalem]{ulem}
+
+    % Bib
+    \newcommand{\napaperbib}{
+        \bibliographystyle{plain}
+        \bibliography{content/ref.bib}
+    }
+    % Page style
+    \newcommand{\napaperpagestyle}{
+        \thispagestyle{empty}
+    }
 }
 \newcommand{\confisca}
 {
@@ -51,6 +61,16 @@
     }
 
     \pagenumbering{arabic}
+    % Bib
+    \newcommand{\napaperbib}{
+        \bibliographystyle{IEEEtranS}
+        \bibliography{content/ref.bib}
+    }
+    % Page style
+    \newcommand{\napaperpagestyle}{
+        \thispagestyle{firstpage}
+        \pagestyle{plain}
+    }
 }
 \newcommand{\confmicro}
 {
@@ -65,7 +85,7 @@
     \usepackage[final]{microtype}
     \usepackage[keeplastbox]{flushend}
     % Always include hyperref last
-    % \usepackage[bookmarks=true,breaklinks=true,letterpaper=true,colorlinks,linkcolor=black,citecolor=blue,urlcolor=black]{hyperref}
+    \usepackage[bookmarks=true,breaklinks=true,letterpaper=true,colorlinks,linkcolor=black,citecolor=blue,urlcolor=black]{hyperref}
 
     % Ensure letter paper
     \pdfpagewidth=8.5in
@@ -84,6 +104,17 @@
     }
 
     \pagenumbering{arabic}
+
+    % Bib
+    \newcommand{\napaperbib}{
+        \bibliographystyle{IEEEtranS}
+        \bibliography{content/ref.bib}
+    }
+    % Page style
+    \newcommand{\napaperpagestyle}{
+        \thispagestyle{firstpage}
+        \pagestyle{plain}
+    }
 }
 \newcommand{\confieee}
 {
@@ -99,6 +130,16 @@
     \usepackage{xcolor}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+    % Bib
+    \newcommand{\napaperbib}{
+        \bibliographystyle{IEEEtranS}
+        \bibliography{content/ref.bib}
+    }
+    % Page style
+    \newcommand{\napaperpagestyle}{
+        % None specified
+    }
 }
 \newcommand{\confusenix}
 {
@@ -111,7 +152,10 @@
         \bibliography{content/ref.bib}
     }
     % Page style
-    \newcommand{\napaperpagestyle}{}
+    \newcommand{\napaperpagestyle}{
+        \thispagestyle{empty} % Camera ready style
+        \pagestyle{empty}     % Camera ready style
+    }
 }
 \newcommand{\confsp}{
     % IEEE S&P
@@ -140,13 +184,13 @@
     \renewcommand\footnotetextcopyrightpermission[1]{}
 }
 
-\confasplos{}
+\confusenix{}
 
 %==================%
 % General settings %
 %==================%
 
-% \usepackage{amssymb}
+\usepackage{amssymb}
 \usepackage{amsfonts}
 \usepackage{amsmath}
 \usepackage{commath}
@@ -163,13 +207,19 @@
 \usepackage{textcomp} % For \textperthousand
 \usepackage{multirow}
 \usepackage{makecell}
-\usepackage{enumitem}
+\usepackage[inline]{enumitem}
 \usepackage[roman]{parnotes}
-\usepackage{threeparttable}
+% \usepackage{threeparttable}
 \usepackage{minted}
 \usepackage{xspace}
-\usepackage{hyperref}
-% \usepackage{inconsolata}
+\usepackage{ctable}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+
+% https://tex.stackexchange.com/a/349084
+% \usepackage{flushend}
+
+\usepackage{inconsolata}
 
 \pgfplotsset{compat=1.15}
 
@@ -177,7 +227,7 @@
 \let\MYcaption\@makecaption
 \makeatother
 % \usepackage[font=scriptsize]{caption}
-\usepackage[font=footnotesize,skip=1pt]{subcaption}
+\usepackage[font+=smaller,skip=1pt]{subcaption}
 \makeatletter
 \let\@makecaption\MYcaption
 \makeatother
@@ -212,18 +262,6 @@
 \def\tabref{\autoref}
 \def\obsref{Observation~\ref}
 
-%=================%
-% Utils           %
-%=================%
-
-% [fh][fh]Figure:
-%   [full|half] width [full|half] height figure
-\newcommand{\figfullwidth}{7in}
-\newcommand{\fighalfwidth}{3.374in}
-
-\newcommand{\figfullheight}{2.69in}
-\newcommand{\fighalfheight}{1.8in}
-
 % For tabularx
 \newcolumntype{Q}{>{\raggedleft\arraybackslash}X}
 \newcolumntype{P}{X<{\centering}}
@@ -252,7 +290,7 @@
 {\end{list}}
 
 % \newcommand{\para}[1]{\vspace{3pt}\noindent\textbf{#1}}
-\newcommand{\para}[1]{\vspace{0.7ex}\noindent\textbf{{{{#1}}\hspace{0.5em}}}}
+\newcommand{\para}[1]{\vspace{0.5ex}\noindent\textbf{{{{#1}}\hspace{0.5em}}}}
 \newcommand{\subpara}[1]{\vspace{3pt}\noindent\textit{#1}}
 
 \newcommand*\mycircinternal[1]{%
@@ -273,9 +311,8 @@
 \newboolean{publicversion}
 \newboolean{revisedversion}
 \newboolean{commentversion}
-
-\setboolean{publicversion}  {false}
-\setboolean{revisedversion} {true}
+\setboolean{publicversion}  {true}
+\setboolean{revisedversion} {false}
 \setboolean{commentversion} {true}
 
 % % Don't use `todonote` package, it slows down the LaTeX compilation
@@ -304,8 +341,8 @@
         position=current page.west,
         angle=90,
         nodeanchor=west,
-        vshift=-2mm,
-        hshift=-25mm,
+        vshift=-5mm,
+        hshift=-20mm,
         opacity=1,
         scale=1.75,
         contents=DRAFT [Ver.{\draftversion}] {\DTMnow} {Page \thepage}
@@ -370,4 +407,4 @@
     \newcommand{\updatelater}[1]{\PackageError{napaper}{Do NOT use \\updatelater for public version!}}
 }
 
-\newcommand{\zixuan}       [1]{\inlinecomment{violet}  {Zixuan}{#1}}
+\newcommand{\zixuan}       [1]{\inlinecomment{brown}  {Zixuan}{#1}}

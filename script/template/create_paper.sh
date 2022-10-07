@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Usage through github:
-# curl https://raw.githubusercontent.com/TheNetAdmin/nap/master/script/template/create_paper.sh | bash -s -- paper_name github_repo
-
 if [ "$#" -ne 2 ]; then
     echo "Usage: $0 PAPER_NAME GITHUB_REPO"
     echo "E.g. $0 awesome TheNetAdmin/paper-awesome"

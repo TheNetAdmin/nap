@@ -43,3 +43,14 @@ output_dev_close()
 ## Save ggplotly
 ## gp <- ggplotly(p)
 ## save_image(gp, opt$out, width = fig_half_width_pixel, height = fig_half_height_pixel)
+
+## Add additional command line options, add following lines before any other 'source()'
+## suppressPackageStartupMessages(library(optparse))
+## additional_option_list = list(
+##     make_option(
+##         c("-a", "--arg"),
+##         type = "integer",
+##         help = "optional additional arg",
+##         metavar = "number"
+##     )
+## )

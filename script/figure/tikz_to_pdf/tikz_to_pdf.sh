@@ -26,9 +26,9 @@ popd || exit 2
 cat << EOF >$TEX_FILE
 \documentclass[tikz]{standalone}
 
-\fontfamily{aer}
-% \usepackage[T1]{fontenc}
-% \usepackage[scaled=.92]{helvet}
+%\fontfamily{aer}
+\usepackage[T1]{fontenc}
+\usepackage[scaled=.92]{helvet}
 \usepackage{amsfonts}
 \usepackage{mathptmx}
 \usepackage{pgfplots}

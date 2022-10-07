@@ -10,6 +10,7 @@ suppressPackageStartupMessages(library(gridExtra))
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(jsonlite))
 suppressPackageStartupMessages(library(rcartocolor))
+suppressPackageStartupMessages(library(grDevices))
 
 line_default_size <- 1.25
 vline_default_size <- 0.75
@@ -73,7 +74,14 @@ output_dev <- function(type, out_filename, out_width, out_height) {
     if (type == "tikz") {
         tikz(file = out_filename, width = out_width, height = out_height, documentDeclaration = "documentclass[10pt]{article}")
     } else if (type == "pdf") {
-        pdf(file = out_filename, width = out_width, height = out_height, pointsize = 1 / pub_ppi)
+        cairo_pdf(
+            filename = out_filename,
+            width = out_width,
+            height = out_height,
+            # pointsize = 1 / pub_ppi,
+            onefile = TRUE,
+            family = "sans"
+        )
     } else if (type == "png") {
         png(file = out_filename, width = out_width, height = out_height, units = "in", res = 120)
     }
