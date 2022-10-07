@@ -33,6 +33,11 @@ paper.grayscale.pdf: paper.pdf
 	$<
 
 
+.PHONY: docker-build
+docker-build:
+	bash script/docker/run.sh make paper.pdf
+
+
 figure/Makefile: figure/plots.csv \
                  script/figure/configure.py
 	@echo GEN $@
