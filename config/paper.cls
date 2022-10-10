@@ -92,7 +92,7 @@
     \pdfpageheight=11in
 
     %%%%%%%%%%%---SETME-----%%%%%%%%%%%%%
-    \newcommand{\microsubmissionnumber}{71}
+    \newcommand{\microsubmissionnumber}{XXX}
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
     \fancypagestyle{firstpage}{
