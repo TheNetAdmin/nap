@@ -16,7 +16,7 @@ force:
 %.pdf: force
 	@ echo "[latexmk] |$(notdir $(shell pwd))| $(*F).tex"
 	@ cd $(@D) && \
-	latexmk -shell-escape -lualatex -synctex=1 $(*F).tex && \
+	latexmk -shell-escape -pdf -synctex=1 $(*F).tex && \
 	pdffonts $(*F).pdf > $(*F).pdf.font.log && \
 	pdftotext $(*F).pdf $(*F).txt
 
@@ -72,14 +72,14 @@ clean:
 	@ echo "[latexmk] |$(notdir $(shell pwd))| clean"
 	@ for f in *.tex; do \
 		latexmk -C $$f; \
+		rm -rf _minted-*; \
+		rm -f *.pdf.font.log; \
+		rm -f *.bbl; \
+		rm -f *.run.xml; \
+		rm -f *.txt; \
 	done
 
 
 .PHONY: distclean
 distclean: clean
 	make ${make_flag} -C ${root_path}/figure clean
-	rm -rf _minted-*
-	rm -f *.pdf.font.log
-	rm -f *.bbl
-	rm -f *.run.xml
-	rm -f *.txt

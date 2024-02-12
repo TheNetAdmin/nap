@@ -24,7 +24,12 @@
 % Conf templates   %
 %==================%
 
+\wlog{Test content 1}
+
 \input{\RootPath/config/\Template/config}
+
+\wlog{Test content 2}
+
 %==================%
 % General settings %
 %==================%
@@ -57,24 +62,31 @@
 \usepackage{newclude}
 % \usepackage{flushend} % https://tex.stackexchange.com/a/349084
 
+\wlog{Test content 2-1}
+
 %%% FONTS
 %% https://www.learnui.design/blog/times-new-roman-similar-fonts.html
-\usepackage[T1]{fontenc}
+% \usepackage[T1]{fontenc}
 % \usepackage{\RootPath/font/autoinst_output/tex/latex/AdobeCaslonPro/AdobeCaslonPro}
 % \usepackage{AdobeCaslonPro}
 % \usepackage{merriweather}
 % \usepackage{PTSerif}
 % \usepackage{LibertinusSerif}
-\usepackage{inconsolata}
+% \usepackage{inconsolata}
 
 % http://www.khirevich.com/latex/microtype/
-\usepackage[activate={true,nocompatibility},final,tracking=true,factor=1100,stretch=10,shrink=10]{microtype}
+% Conflicting with USENIX
+% \usepackage[kerning,spacing,final]{microtype}
+% \usepackage[activate={true,nocompatibility},final,tracking=true,factor=1100,stretch=10,shrink=10]{microtype}
 % \usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
 % activate={true,nocompatibility} - activate protrusion and expansion
 % final - enable microtype; use "draft" to disable
 % tracking=true, kerning=true, spacing=true - activate these techniques
 % factor=1100 - add 10% to the protrusion amount (default is 1000)
 % stretch=10, shrink=10 - reduce stretchability/shrinkability (default is 20/20)
+
+
+\wlog{Test content 2-2}
 
 \pgfplotsset{compat=1.15}
 
@@ -101,9 +113,11 @@
     basicstyle=\ttfamily\color{black},
     numberstyle=\color{black}
 }
-% \lstMakeShortInline[columns=fixed]|
 
 \graphicspath{{figure/}}
+
+\wlog{Test content 3}
+
 
 \tikzstyle{every picture}+=[font=\sffamily]
 
@@ -261,3 +275,6 @@
 
 \usepackage[normalem]{ulem}
 \newcommand{\emphu}[1]{\textit{\uline{#1}}}
+
+
+\wlog{Test content 4}
