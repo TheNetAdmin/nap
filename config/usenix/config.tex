@@ -1,0 +1,16 @@
+\newcommand{\confusenix}
+{
+    % USENIX conference, e.g. ATC
+    \LoadClass[letterpaper,twocolumn,10pt]{article}
+    \usepackage{config/usenix/template/usenix-2020-09}
+    % Bib
+    \newcommand{\napaperbib}{
+        \bibliographystyle{plainurl}
+        \bibliography{content/ref.bib}
+    }
+    % Page style
+    \newcommand{\napaperpagestyle}{
+        \thispagestyle{empty} % Camera ready style
+        \pagestyle{empty}     % Camera ready style
+    }
+}

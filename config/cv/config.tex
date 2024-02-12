@@ -1,0 +1,220 @@
+\LoadClass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+% \usepackage{enumitem} % Defined by paper.cls
+% \usepackage{enumitem-zref} % Deprecated package since 2015
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{amssymb}
+\usepackage{makecell}
+\usepackage{xparse}
+
+\renewcommand\familydefault{\sfdefault}
+\usepackage[T1]{fontenc}
+
+%% Helvet font, scaled to fit long publication title
+\usepackage[scaled=.92]{helvet}
+
+%% Libre Franklin:  https://www.nngroup.com/articles/best-font-for-online-reading/
+% \usepackage{librefranklin}
+
+\urlstyle{same}
+\newcommand{\rurl}[1]{\href{http://#1}{\nolinkurl{#1}}}
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\usepackage[letterpaper,margin=.5in, headsep=.1in]{geometry}
+% \addtolength{\oddsidemargin}{-0.6in}
+% \addtolength{\evensidemargin}{-0.6in}
+% \addtolength{\textwidth}{1.2in}
+% \addtolength{\topmargin}{-.6in}
+% \addtolength{\textheight}{1.0in}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+\newlength{\SectionPadding}
+\setlength{\SectionPadding}{-1em}
+
+% Sections formatting
+\titleformat{\section}{
+    \vspace{-6pt}\scshape\raggedright\Large\bfseries
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+\titleformat{\subsection}{
+    \vspace{-3pt}\scshape\raggedright\large\itshape
+}{}{0em}{}[\vspace{-3pt}]
+
+% Adjust tabular in subheading
+% \setlength{\extrarowheight}{5pt}
+\renewcommand{\arraystretch}{0.9}
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[2]{
+    \item\small{
+        \textbf{#1}{: #2 \vspace{-2pt}}
+    }
+}
+
+\newcommand{\resumeItemSimple}[1]{
+    \item\small{
+        {#1 \vspace{0pt}}
+    }
+}
+
+\newcommand{\ItemTableWidth}{\textwidth}
+
+\newcommand{\resumeSubheading}[4]{
+    \item
+    \begin{tabular*}{\ItemTableWidth}{l@{\extracolsep{\fill}}r}
+        \textbf{#1} & #2 \\
+        \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubheadingSimple}[3]{
+    \item
+    \begin{tabular*}{\ItemTableWidth}{l@{\extracolsep{\fill}}r}
+        \textbf{#1} &  \textit{\small #2} \\
+        \textit{\bfseries\small#3} & ~ \\
+    \end{tabular*}\vspace{-6pt}
+}
+
+\newcommand{\resumePublication}[4]{
+    \item \label{pub:#1}
+    \begin{tabular*}{.8\textwidth}{l@{\extracolsep{\fill}}r}
+        \multicolumn{2}{l}{\bfseries \small #2}\\
+        {\small \itshape #4} & \textit{#3} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeTalks}[2]{
+    \item
+    \begin{tabular*}{\ItemTableWidth}{p{\textwidth}@{\extracolsep{\fill}}}
+        {\bfseries #1}\\
+        \textit{\small#2} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProject}[3]{
+    \item
+    \begin{tabular*}{\ItemTableWidth}{l@{\extracolsep{\fill}}r}
+        \textbf{#1} &  \textit{\small #2} \\
+        \textit{\small#3} & ~ \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+
+\newcommand{\resumeSubItem}[2]{\resumeItem{#1}{#2}\vspace{-5pt}}
+
+% \renewcommand{\labelitemi}{}
+\renewcommand{\labelitemii}{$\circ$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0pt,label={},topsep=0pt,itemsep=1pt]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+
+\newcommand{\resumeItemListStart}{\begin{itemize}\vspace{0pt}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{0pt}}
+
+\newenvironment{DetailList}
+    % {\begin{itemize}[wide, labelindent=\parindent]\vspace{0pt}\small}
+    {\begin{itemize}[leftmargin={1em},itemsep=0pt,topsep=2pt,parsep=0pt,partopsep=0pt]\vspace{0pt}\small}
+    {\end{itemize}\vspace{0pt}}
+
+\newcommand{\DetailItem}{\resumeItemSimple}
+
+% Content settings
+\NewDocumentCommand{\CVNewSection}{mO{#1}}{
+    \newenvironment{#1}
+    {
+        \section{#2}
+        \resumeSubHeadingListStart
+    }
+    {
+        \resumeSubHeadingListEnd
+        \vspace{\SectionPadding}
+    }
+}
+
+\NewDocumentCommand{\CVNewSectionTitle}{mO{#1}}{
+    \newenvironment{#1}
+    {
+        \section{#2}
+    }
+    {
+    }
+}
+
+\NewDocumentCommand{\CVNewSubSection}{mO{#1}}{
+    \newenvironment{#1}
+    {
+        \subsection{#2}
+        \resumeSubHeadingListStart
+    }
+    {
+        \resumeSubHeadingListEnd
+        \vspace{\SectionPadding}
+    }
+}
+
+\CVNewSection{Education}
+\newcommand{\EducationItem}{\resumeSubheading}
+
+\CVNewSectionTitle{Interest}
+\newcommand{\InterestItem}{\resumeSubheading}
+
+\CVNewSectionTitle{Experience}
+\CVNewSubSection{ResearchExperience}[Research Experience]
+\CVNewSubSection{IndustrialExperience}[Industry Experience]
+\newcommand{\ExperienceItem}{\resumeSubheading}
+
+\CVNewSection{Service}[Services]
+\newcommand{\ServiceItem}{\resumeSubheading}
+
+\CVNewSection{Teaching}
+\newcommand{\TeachingItem}{\resumeSubheading}
+
+\CVNewSectionTitle{Publication}[Publications]
+\newenvironment{PublicationList}[1]
+{
+    \begin{enumerate}[leftmargin=3em,label={\small[#1\arabic*]},topsep=0pt,itemsep=1pt,topsep=2pt,parsep=0pt,partopsep=0pt]
+}
+{
+    \end{enumerate}
+    \vspace{\SectionPadding}
+}
+\newcommand{\PublicationItem}[4]{
+    \item \small \label{pub:#1} {#4}. {#2}, \textit{#3}
+}
+\newcommand{\PublicationItemOngoing}[4]{
+    \item \small \label{pub:#1} {#4}. {#2}
+}
+
+\CVNewSection{Mentorship}[Mentorships]
+\newcommand{\MentorshipItem}{\resumeSubheading}
+
+\CVNewSection{Talk}[Invited Talks]
+\newcommand{\TalkItem}{\resumeTalks}
+
+\CVNewSection{Honor}[Honors]
+\newcommand{\HonorItem}{}
+
+\newenvironment{SectionTable}
+    {\begin{tabular*}{\ItemTableWidth}{l@{\extracolsep{4em}}l}}
+    {\end{tabular*}}
+\newenvironment{Reference}
+    {\section{References}\begin{SectionTable}}
+    {\end{SectionTable}}
+\newcommand{\ReferenceItem}[2]{\textbf{#1} & #2 \\}

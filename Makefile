@@ -1,65 +1,37 @@
-.DEFAULT_GOAL:=paper
-make_flag:=--no-print-directory -j8
+projects := $(PWD)
+all_targets += paper.pdf
+root_path := $(PWD)
+include common.mk
 
-.PHONY: paper
-paper:	paper.pdf
+# include project/conference/usenix.mk
 
+# project/conference/usenix.mk: project/conference/usenix.csv
+# 	cd project/conference && python3 configure.py
 
-paper.pdf: figure
-	latexmk -shell-escape -pdf -synctex=1 paper.tex
-	pdffonts paper.pdf > paper.pdf.font.log
+.PHONY: testoutput
+testoutput:
+	echo $(projects)
 
+.DEFAULT_GOAL:=all_projects
 
-.PHONY: grammar
-grammar:
-	bash script/text_process/pandoc_latex_to_plain.sh paper.tex paper.txt
+.PHONY: all_projects
+all_projects: build_all_projects
 
+.PHONY: build_all_projects
+build_all_projects:
+	@for dir in $(projects); do \
+		$(MAKE) -s --no-print-directory -C $$dir all; \
+	done
+	@echo "ALL FINISHED"
 
-.PHONY: grayscale
-grayscale: paper.grayscale.pdf
+.PHONY: clean_projects
+clean_projects:
+	for dir in $(projects); do \
+		$(MAKE) -C $$dir clean; \
+	done
 
-
-paper.grayscale.pdf: paper.pdf
-	gs \
-	-sOutputFile=$@ \
-	-sDEVICE=pdfwrite \
-	-sColorConversionStrategy=Gray \
-	-dProcessColorModel=/DeviceGray \
-	-dCompatibilityLevel=1.4 \
-	-dAutoRotatePages=/None \
-	-dEmbedAllFonts=true \
-	-dNOPAUSE \
-	-dBATCH \
-	$<
-
-
-.PHONY: docker-build
-docker-build:
-	bash script/docker/run.sh make paper.pdf
-
-
-figure/Makefile: figure/plots.csv \
-                 script/figure/configure.py
-	@echo GEN $@
-	@python script/figure/configure.py gen-makefile $< $@
-
-
-figure/plots.tex: figure/plots.csv \
-                  script/figure/configure.py
-	@echo GEN $@
-	@python script/figure/configure.py gen-texfile $< $@
-
-
-.PHONY: figure
-figure: figure/Makefile figure/plots.tex
-	@make ${make_flag} -C figure all_tikz_pdf all_pdf
-
-
-.PHONY: clean
-clean:
-	@latexmk -c
-
-
-.PHONY: clean_all
-clean_all: clean
-	@make ${make_flag} -C figure clean
+.PHONY: distclean_projects
+distclean_projects:
+	for dir in $(projects); do \
+		$(MAKE) -C $$dir distclean; \
+	done

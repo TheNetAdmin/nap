@@ -1,0 +1,82 @@
+% https://www.matthewjmiller.net/howtos/customized-cover-letter-scripts/
+\LoadClass[10pt,stdletter,orderfromtodate,sigleft]{newlfm}
+\usepackage{kpfonts}
+\usepackage{url}
+
+\newlfmP{MinFoot=0pt}
+\newlfmP{footermarginsize=15pt}
+\newlfmP{unprbottom=0pt}
+% \usepackage{layout}
+% \usepackage{showframe}
+
+\widowpenalty=1000
+\clubpenalty=1000
+
+\newlfmP{headermarginskip=0pt}
+\newlfmP{topmarginskip=0pt}
+\newlfmP{bottommarginskip=0pt}
+
+\newlfmP{addrfromskipbefore=0pt}
+\newlfmP{addrfromskipafter=0pt}
+\newlfmP{addrtoskipbefore=5pt}
+\newlfmP{addrtoskipafter=10pt}
+\newlfmP{dateskipbefore=10pt}
+\newlfmP{dateskipafter=5pt}
+
+\newlfmP{sigsize=0pt}
+\newlfmP{sigskipbefore=0pt}
+\newlfmP{sigskipafter=0pt}
+\newlfmP{postsigskipbefore=0pt}
+\newlfmP{postsigskipafter=0pt}
+\newlfmP{closeskipbefore=5pt}
+\newlfmP{closeskipafter=0pt}
+
+% \newlfmP{greettoskipafter=0pt}
+
+\newlfmP{addrfromphone}
+\newlfmP{addrfromemail}
+\PhrPhone{Phone}
+\PhrEmail{Email}
+
+\namefrom{Zixuan Wang}
+\addrfrom{%
+    Department of Computer Science and Engineering\\
+    University of California, San Diego\\
+    9500 Gilman Drive\\
+    La Jolla, CA 92122
+}
+\phonefrom{725-600-1695}
+\emailfrom{zxwang@ucsd.edu}
+
+\greetto{Dear Members of the Search Committee,}
+\closeline{Sincerely,}
+% \signame{Zixuan Wang\vspace{-20pt}}
+
+% #1: TargetDepartment
+% #2: TargetUniversity
+% #3: TargetAddress
+\newcommand{\TargetAddress}[3]
+{
+\newcommand{\TargetDepartment}{#1}
+\newcommand{\TargetUniversity}{#2}
+\newcommand{\TargetMailAddress}{#3}
+\addrto{%
+Faculty Search Committee\\
+\TargetDepartment\\
+\TargetUniversity\\
+\TargetMailAddress}
+}
+
+% \usepackage{epstopdf}
+% \epstopdfsetup{update}
+\usepackage{graphicx}
+
+\newsavebox{\LetterLOGO}
+\sbox{\LetterLOGO}{%
+    \parbox[b]{1.75in}{%
+        \vspace{0.5in}%
+        \includegraphics[scale=.5]{\RootPath/figure/fig/ucsd/UCSanDiegoLogo-Black.pdf}%
+    }%
+}%
+\makeletterhead{UCSDLOGO}{\Lheader{\usebox{\LetterLOGO}}}
+\lthUCSDLOGO

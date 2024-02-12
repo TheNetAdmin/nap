@@ -1,199 +1,39 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{paper}
 
+\RequirePackage{kvoptions}
+\SetupKeyvalOptions{
+    family=nap,
+    prefix=
+}
+
+\DeclareStringOption[./]{RootPath}
+\DeclareStringOption[statement]{Template}
+\DeclareBoolOption[true]  {PublicVersion}
+\DeclareBoolOption[false] {RevisedVersion}
+\DeclareBoolOption[true]  {CommentVersion}
+
+\ProcessKeyvalOptions*
+
+\wlog{RootPath: {\RootPath}}
+\wlog{Template: {\Template}}
+
 \usepackage{ifthen}
 
 %==================%
 % Conf templates   %
 %==================%
 
-\newcommand{\confasplos}
-{
-    % ASPLOS Style
-    \LoadClass[pageno]{config/asplos/jpaper}
-    \newcommand{\asplossubmissionnumber}{XXX}
-
-    \usepackage[normalem]{ulem}
-
-    % Bib
-    \newcommand{\napaperbib}{
-        \bibliographystyle{plain}
-        \bibliography{content/ref.bib}
-    }
-    % Page style
-    \newcommand{\napaperpagestyle}{
-        \thispagestyle{empty}
-    }
-}
-\newcommand{\confisca}
-{
-    % ISCA Style
-    \LoadClass[conference]{config/isca/IEEEtran}
-
-    % From ISCA 2020 Template
-    \usepackage{cite}
-    \usepackage{amsmath,amssymb,amsfonts}
-    % \usepackage{algorithmic}
-    \usepackage{graphicx}
-    \usepackage{textcomp}
-    \usepackage{xcolor}
-    \usepackage{fancyhdr}
-    \usepackage[hyphens]{url}
-
-\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
-    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
-
-    % Ensure letter paper
-    \pdfpagewidth=8.5in
-    \pdfpageheight=11in
-
-
-    %%%%%%%%%%%---SETME-----%%%%%%%%%%%%%
-    \newcommand{\iscasubmissionnumber}{XXX}
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-    \fancypagestyle{firstpage}{
-    \fancyhf{}
-    \renewcommand{\headrulewidth}{0pt}
-    \fancyhead[C]{\normalsize{ISCA 2020 Submission
-        \textbf{\#\iscasubmissionnumber} \\ Confidential Draft: DO NOT DISTRIBUTE}}
-    \fancyfoot[C]{\thepage}
-    }
-
-    \pagenumbering{arabic}
-    % Bib
-    \newcommand{\napaperbib}{
-        \bibliographystyle{IEEEtranS}
-        \bibliography{content/ref.bib}
-    }
-    % Page style
-    \newcommand{\napaperpagestyle}{
-        \thispagestyle{firstpage}
-        \pagestyle{plain}
-    }
-}
-\newcommand{\confmicro}
-{
-    % % Micro 2020 Style
-    \LoadClass{config/micro/sig-alternate}
-    \usepackage{mathptmx} % This is Times font
-
-    \usepackage{fancyhdr}
-    \usepackage[normalem]{ulem}
-    \usepackage[hyphens]{url}
-    \usepackage[sort,nocompress]{cite}
-    \usepackage[final]{microtype}
-    \usepackage[keeplastbox]{flushend}
-    % Always include hyperref last
-    \usepackage[bookmarks=true,breaklinks=true,letterpaper=true,colorlinks,linkcolor=black,citecolor=blue,urlcolor=black]{hyperref}
-
-    % Ensure letter paper
-    \pdfpagewidth=8.5in
-    \pdfpageheight=11in
-
-    %%%%%%%%%%%---SETME-----%%%%%%%%%%%%%
-    \newcommand{\microsubmissionnumber}{XXX}
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-    \fancypagestyle{firstpage}{
-      \fancyhf{}
-      \renewcommand{\headrulewidth}{0pt}
-      \fancyhead[C]{\vspace{15pt}\normalsize{MICRO 2020 Submission
-          \textbf{\#\microsubmissionnumber} -- Confidential Draft -- Do NOT Distribute!!}}
-      \fancyfoot[C]{\thepage}
-    }
-
-    \pagenumbering{arabic}
-
-    % Bib
-    \newcommand{\napaperbib}{
-        \bibliographystyle{IEEEtranS}
-        \bibliography{content/ref.bib}
-    }
-    % Page style
-    \newcommand{\napaperpagestyle}{
-        \thispagestyle{firstpage}
-        \pagestyle{plain}
-    }
-}
-\newcommand{\confieee}
-{
-    % IEEE conference -- MICRO2020 camera ready
-    \LoadClass[conference]{config/ieee/IEEEtran}
-    \IEEEoverridecommandlockouts
-    % The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
-    \usepackage{cite}
-    \usepackage{amsmath,amssymb,amsfonts}
-    \usepackage{algorithmic}
-    \usepackage{graphicx}
-    \usepackage{textcomp}
-    \usepackage{xcolor}
-\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
-    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
-
-    % Bib
-    \newcommand{\napaperbib}{
-        \bibliographystyle{IEEEtranS}
-        \bibliography{content/ref.bib}
-    }
-    % Page style
-    \newcommand{\napaperpagestyle}{
-        % None specified
-    }
-}
-\newcommand{\confusenix}
-{
-    % USENIX conference, e.g. ATC
-    \LoadClass[letterpaper,twocolumn,10pt]{article}
-    \usepackage{config/usenix/usenix-2020-09}
-    % Bib
-    \newcommand{\napaperbib}{
-        \bibliographystyle{plainurl}
-        \bibliography{content/ref.bib}
-    }
-    % Page style
-    \newcommand{\napaperpagestyle}{
-        \thispagestyle{empty} % Camera ready style
-        \pagestyle{empty}     % Camera ready style
-    }
-}
-\newcommand{\confsp}{
-    % IEEE S&P
-    \LoadClass[conference]{config/ieee/IEEEtran}
-    \usepackage{cite}
-    \usepackage{amsmath,amssymb,amsfonts}
-    \usepackage{algorithmic}
-    \usepackage{graphicx}
-    \usepackage{textcomp}
-    \usepackage[table]{xcolor}
-    % Bib
-    \newcommand{\napaperbib}{
-        \bibliographystyle{IEEEtranS}
-        \bibliography{content/ref.bib}
-    }
-    % Page style
-    \newcommand{\napaperpagestyle}{
-      \thispagestyle{firstpage}
-      \pagestyle{plain}
-    }
-}
-\newcommand{\confeurosys}
-{
-    \LoadClass[sigplan,review,anonymous]{acmart}
-    \acmSubmissionID{XXX}
-    \renewcommand\footnotetextcopyrightpermission[1]{}
-}
-
-\confusenix{}
-
+\input{\RootPath/config/\Template/config}
 %==================%
 % General settings %
 %==================%
 
-\usepackage{amssymb}
-\usepackage{amsfonts}
-\usepackage{amsmath}
-\usepackage{commath}
+% \usepackage{amssymb}
+% \usepackage{amsfonts}
+% \usepackage{amsmath}
+% \usepackage{commath}
+
 \usepackage{float}
 \usepackage{pgfplots}
 % \usepackage{algorithm}
@@ -207,19 +47,34 @@
 \usepackage{textcomp} % For \textperthousand
 \usepackage{multirow}
 \usepackage{makecell}
-\usepackage[inline]{enumitem}
+\usepackage{enumitem}
 \usepackage[roman]{parnotes}
 % \usepackage{threeparttable}
 \usepackage{minted}
 \usepackage{xspace}
 \usepackage{ctable}
-\usepackage[T1]{fontenc}
 \usepackage{textcomp}
+\usepackage{newclude}
+% \usepackage{flushend} % https://tex.stackexchange.com/a/349084
 
-% https://tex.stackexchange.com/a/349084
-% \usepackage{flushend}
-
+%%% FONTS
+%% https://www.learnui.design/blog/times-new-roman-similar-fonts.html
+\usepackage[T1]{fontenc}
+% \usepackage{\RootPath/font/autoinst_output/tex/latex/AdobeCaslonPro/AdobeCaslonPro}
+% \usepackage{AdobeCaslonPro}
+% \usepackage{merriweather}
+% \usepackage{PTSerif}
+% \usepackage{LibertinusSerif}
 \usepackage{inconsolata}
+
+% http://www.khirevich.com/latex/microtype/
+\usepackage[activate={true,nocompatibility},final,tracking=true,factor=1100,stretch=10,shrink=10]{microtype}
+% \usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
+% activate={true,nocompatibility} - activate protrusion and expansion
+% final - enable microtype; use "draft" to disable
+% tracking=true, kerning=true, spacing=true - activate these techniques
+% factor=1100 - add 10% to the protrusion amount (default is 1000)
+% stretch=10, shrink=10 - reduce stretchability/shrinkability (default is 20/20)
 
 \pgfplotsset{compat=1.15}
 
@@ -246,7 +101,7 @@
     basicstyle=\ttfamily\color{black},
     numberstyle=\color{black}
 }
-\lstMakeShortInline[columns=fixed]|
+% \lstMakeShortInline[columns=fixed]|
 
 \graphicspath{{figure/}}
 
@@ -289,9 +144,6 @@
     \parsep=0pt \partopsep=0pt}}%
 {\end{list}}
 
-% \newcommand{\para}[1]{\vspace{3pt}\noindent\textbf{#1}}
-\newcommand{\para}[1]{\vspace{0.5ex}\noindent\textbf{{{{#1}}\hspace{0.5em}}}}
-\newcommand{\subpara}[1]{\vspace{3pt}\noindent\textit{#1}}
 
 \newcommand*\mycircinternal[1]{%
   \tikz[baseline=(char.base)]{%
@@ -308,13 +160,6 @@
 % https://tex.stackexchange.com/a/169711
 \renewcommand{\floatpagefraction}{.9}
 
-\newboolean{publicversion}
-\newboolean{revisedversion}
-\newboolean{commentversion}
-\setboolean{publicversion}  {true}
-\setboolean{revisedversion} {false}
-\setboolean{commentversion} {true}
-
 % % Don't use `todonote` package, it slows down the LaTeX compilation
 % % Treat todo as text or not
 % \ifthenelse{\boolean{todoastext}}{
@@ -326,14 +171,14 @@
 % }
 
 % Paper presentation
-\ifthenelse{\boolean{publicversion}}{
-    \setboolean{revisedversion}{false}
-    \setboolean{commentversion}{false}
+\ifthenelse{\boolean{PublicVersion}}{
+    \setboolean{RevisedVersion}{false}
+    \setboolean{CommentVersion}{false}
 }{
     \newcommand{\draftversion}{ConfName}
 
     % For date time print
-    \edef\pdfilemoddate#1{\pdfcreationdate}
+    % \edef\pdfilemoddate#1{\pdfcreationdate} % not working in xelatex
     \usepackage[useregional]{datetime2}
     \usepackage{background}
     \backgroundsetup{
@@ -350,7 +195,7 @@
 }
 
 % Revision
-\ifthenelse{\boolean{revisedversion}}{
+\ifthenelse{\boolean{RevisedVersion}}{
     \usepackage{soul, color}
 
     % Register customized commands to soul, so that \hl and \st can process
@@ -396,9 +241,9 @@
 }
 
 % Comments
-\ifthenelse{\boolean{commentversion}}{
+\ifthenelse{\boolean{CommentVersion}}{
     \newcommand{\inlinecomment}[3]{{\color{#1}\sf \footnotesize #2: #3}}
-    \newcommand{\ignore}       [1]{{\color{gray}\sf #1}}
+    \newcommand{\ignore}       [1]{{\color{gray} #1}}
     \newcommand{\updatelater}  [1]{{\color{blue}#1}}
 }{
     \newcommand{\inlinecomment}[3]{}
@@ -408,3 +253,11 @@
 }
 
 \newcommand{\zixuan}       [1]{\inlinecomment{brown}  {Zixuan}{#1}}
+
+\newcommand{\rootinput}[1]{\input{\RootPath/#1}}
+% \newcommand{\rootinput}[1]{\includedoc{\RootPath/#1}}
+
+\usepackage{cleveref}
+
+\usepackage[normalem]{ulem}
+\newcommand{\emphu}[1]{\textit{\uline{#1}}}
