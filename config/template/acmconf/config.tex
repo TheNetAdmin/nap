@@ -1,0 +1,23 @@
+\LoadClass[
+    sigconf,
+    natbib=false,
+    nonacm=true,
+    % review,
+    % anonymous,
+]{acmart}
+
+\usepackage[
+    backend=biber,
+    datamodel=acmdatamodel,
+    style=acmnumeric,
+]{biblatex}
+\bibliography{content/ref.bib}
+
+\acmSubmissionID{\SubmissionID{}}
+\renewcommand\footnotetextcopyrightpermission[1]{}
+
+\renewcommand{\napaperbib}{
+    % \bibliographystyle{plainurl}
+    % \bibliography{content/ref.bib}
+    \printbibliography{}
+}

@@ -1,0 +1,96 @@
+
+% % Don't use `todonote` package, it slows down the LaTeX compilation
+% % Treat todo as text or not
+% \ifthenelse{\boolean{todoastext}}{
+%     % Output todo as text
+%     \newcommand{\todocolortext}[3]{\color{2}#3}
+% }{
+%     % Assert error at todo
+%     \newcommand{\todocolortext}[1]{Do NOT use \\#1 for public version!}
+% }
+
+% Paper presentation
+\ifthenelse{\boolean{PublicVersion}}{
+    \setboolean{RevisedVersion}{false}
+    \setboolean{CommentVersion}{false}
+}{
+    \newcommand{\draftversion}{ConfName}
+
+    % For date time print
+    % \edef\pdfilemoddate#1{\pdfcreationdate} % not working in xelatex
+    \usepackage[useregional]{datetime2}
+    \usepackage{background}
+    \backgroundsetup{
+        color=gray,
+        position=current page.west,
+        angle=90,
+        nodeanchor=west,
+        vshift=-5mm,
+        hshift=-20mm,
+        opacity=1,
+        scale=1.75,
+        contents=DRAFT [Ver.{\draftversion}] {\DTMnow} {Page \thepage}
+    }
+}
+
+% Revision
+\ifthenelse{\boolean{RevisedVersion}}{
+    \usepackage{soul, color}
+
+    % Register customized commands to soul, so that \hl and \st can process
+    % these commands without compilation errors
+    %
+    % https://tex.stackexchange.com/a/139500
+    % arg#2 available values:
+    %   0 or 1: font switching commands
+    %        7: \textsuperscript or similar commands, e.g., \cite, \ref
+    %        8: \footnote
+    %        9: accents
+
+    % Reference style commands
+    \soulregister{\cite}    {7}
+    \soulregister{\ref}     {7}
+    \soulregister{\autoref} {7}
+    \soulregister{\figref}  {7}
+    \soulregister{\secref}  {7}
+    \soulregister{\tabref}  {7}
+    \soulregister{\pageref} {7}
+
+    % Font switching style commands
+    \soulregister{\para}    {1}
+    \soulregister{\zixuan}  {1}
+
+    % % https://tex.stackexchange.com/questions/282386/make-soul-highlight-span-lines
+    % \makeatletter
+    % \def\SOUL@hlpreamble{%
+    %     \setul{\dp\strutbox}{\dimexpr\ht\strutbox+\dp\strutbox\relax}%
+    %     \let\SOUL@stcolor\SOUL@hlcolor
+    %     \SOUL@stpreamble
+    % }
+    % \makeatother
+
+    % Usage:
+    % \st{for paragraph with deleting lines}.}
+    % \hl{highlight a paragraph with yellow background.}
+} {
+    % \renewcommand{\st}[1]{}
+    % \renewcommand{\hl}[1]{}
+    \newcommand{\st}[1]{\PackageError{napaper}{Do NOT use \\st for public version!}}
+    \newcommand{\hl}[1]{\PackageError{napaper}{Do NOT use \\hl for public version!}}
+}
+
+% Comments
+\ifthenelse{\boolean{CommentVersion}}{
+    \newcommand{\inlinecomment} [3] {{\color{#1}\sf \footnotesize #2: #3}}
+    \newcommand{\ignore}        [1] {{\color{gray} #1}}
+    \newcommand{\updatelater}   [1] {{\color{SunsetVII} #1}}
+    \newcommand{\overview}      [1] {{\color{SunsetDarkVII} \bfseries #1}}
+}{
+    \newcommand{\inlinecomment} [3] {}
+    \newcommand{\ignore}        [1] {}
+    \newcommand{\updatelater}   [1] {}
+    % \newcommand{\updatelater}   [1] {\PackageError{napaper}{Do NOT use \\updatelater for public version!}}
+    \newcommand{\overview}      [1] {#1}
+}
+
+\newcommand{\zixuan}       [1]{\inlinecomment{SunsetIII}  {Zixuan}{#1}}

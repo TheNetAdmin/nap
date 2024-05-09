@@ -54,3 +54,6 @@ output_dev_close()
 ##         metavar = "number"
 ##     )
 ## )
+
+## Example
+## https://r-graph-gallery.com/web-scatterplot-corruption-and-human-development.html

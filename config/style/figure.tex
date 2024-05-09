@@ -1,0 +1,110 @@
+% https://www.overleaf.com/learn/latex/Questions/How_can_I_get_my_table_or_figure_to_stay_where_they_are%2C_instead_of_going_to_the_next_page%3F
+% \usepackage[section]{placeins}
+
+\pgfplotsset{compat=1.15}
+
+% Subfigures
+\makeatletter
+\let\MYcaption\@makecaption
+\makeatother
+% \usepackage[font=scriptsize]{caption}
+\usepackage[font+=smaller,skip=1pt]{subcaption}
+\makeatletter
+\let\@makecaption\MYcaption
+\makeatother
+
+\graphicspath{{figure/}}
+
+\tikzstyle{every picture}+=[font=\sffamily]
+
+% https://tex.stackexchange.com/a/169711
+\renewcommand{\floatpagefraction}{.9}
+
+\newcommand{\nafig}[5]{
+    % #1 postion
+    % #2 subfigure width, e.g., .48\linewidth
+    % #3 figure path
+    % #4 label
+    % #5 caption
+    \begin{subfigure}[#1]{#2}
+        \centering
+        \includegraphics[width=\linewidth]{#3}
+        \caption{\label{#4}#5}
+    \end{subfigure}
+}
+
+% Top align figure and bottom align caption
+% https://tex.stackexchange.com/questions/152818/top-aligned-subfigure-with-bottom-aligned-caption
+\ExplSyntaxOn
+\NewDocumentCommand{\xsubfigure}{ m m }
+ {% #1 is a symbolic key, #2 is a list of key-value pairs
+  \roly_xsubfigure:nn { #1 } { #2 }
+ }
+\NewDocumentCommand{\makerow}{ m }
+ {% #1 is a list of symbolic keys
+  \roly_makerow:n { #1 }
+ }
+
+% define the keys
+\keys_define:nn { roly/subfigures }
+ {
+  width .tl_set:N = \l_roly_subfig_width_tl,
+  body .tl_set:N = \l_roly_subfig_body_tl,
+  caption .tl_set:N = \l_roly_subfig_caption_tl,
+ }
+
+% the needed variables
+\dim_new:N \l_roly_row_height_dim
+\box_new:N \l_roly_body_box
+
+% this is the inner command that stores the properties
+\cs_new_protected:Npn \roly_xsubfigure:nn #1 #2
+ {
+  \prop_if_exist:cTF { l_roly_subfig_#1_prop }
+   {
+    \prop_clear:c { l_roly_subfig_#1_prop }
+   }
+   {
+    \prop_new:c { l_roly_subfig_#1_prop }
+   }
+  \keys_set:nn { roly/subfigures } { #2 }
+  \prop_put:cnV { l_roly_subfig_#1_prop } { width } \l_roly_subfig_width_tl
+  \prop_put:cnV { l_roly_subfig_#1_prop } { body } \l_roly_subfig_body_tl
+  \prop_put:cnV { l_roly_subfig_#1_prop } { caption } \l_roly_subfig_caption_tl
+ }
+
+% this is the inner command for producing a row
+\cs_new_protected:Npn \roly_makerow:n #1
+ {
+  % get the heights of the objects on a row
+  \dim_zero:N \l_roly_row_height_dim
+  \clist_map_inline:nn { #1 }
+   {
+    \hbox_set:Nn \l_roly_body_box
+     {
+      \prop_item:cn { l_roly_subfig_##1_prop } { body }
+     }
+    \dim_compare:nT { \box_ht:N \l_roly_body_box > \l_roly_row_height_dim }
+     {
+      \dim_set:Nn \l_roly_row_height_dim { \box_ht:N \l_roly_body_box }
+     }
+   }
+  % produce a line
+  \clist_map_inline:nn { #1 }
+   {
+    % a subfigure is set here
+    \begin{subfigure}[t]{ \prop_item:cn { l_roly_subfig_##1_prop } { width } }
+    \raggedright
+    \vspace{0pt} % for top alignment
+    % the body is set in a suitably dimensioned parbox
+    \parbox[t][\l_roly_row_height_dim]{\textwidth}{
+      \prop_item:cn { l_roly_subfig_##1_prop } { body }
+    }
+    % add the caption
+    \caption{ \prop_get:cn { l_roly_subfig_##1_prop } { caption } }
+    \end{subfigure}
+    \hspace{2em} % some space between the objects in a row
+   }
+   \unskip\\ % end up the row
+ }
+\ExplSyntaxOff
